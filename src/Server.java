@@ -17,7 +17,7 @@ public class Server {
 			
 			System.out.println("Waiting for client...");
 			socket = server.accept();
-			
+			System.out.println("Connected to client...");
 			//open socket and streams
 			open();
 			

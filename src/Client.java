@@ -13,27 +13,29 @@ public class Client {
 	public Client(int port) throws IOException{
 		System.out.println("Establishing a connection to a server..."); 
 		try {
-			socket = new Socket(String.valueOf(port), port);
+			socket = new Socket("localhost", port);
 			System.out.println("Connected to port " + port + "."); 
 			start();
+			
+			boolean isDone = false;
+			
+			while(!isDone){
+				String line = input.nextLine();
+				if(line.equalsIgnoreCase("done")){
+					isDone = true;
+				}
+				try {
+					outputStream.writeUTF(line);
+					outputStream.flush();
+				} catch (IOException e) {
+					System.out.println(e);
+				}
+			}
+			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 		
-		boolean isDone = false;
-		
-		while(!isDone){
-			String line = input.nextLine();
-			if(line.equalsIgnoreCase("done")){
-				isDone = true;
-			}
-			try {
-				outputStream.writeUTF(line);
-				outputStream.flush();
-			} catch (IOException e) {
-				System.out.println(e);
-			}
-		}
 		
 		outputStream.close();
 		socket.close();
