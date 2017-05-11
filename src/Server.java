@@ -17,7 +17,8 @@ public class Server {
 			
 			System.out.println("Waiting for client...");
 			socket = server.accept();
-			System.out.println("Connected to client...");
+			System.out.println("Connected to client!");
+			
 			//open socket and streams
 			open();
 			
@@ -27,7 +28,7 @@ public class Server {
 				String input = streamInput.readUTF();
 				if(input == null)
 					isClientDone = true;
-				System.out.println(input);
+				System.out.println(socket.getLocalPort() + ": " + input);
 				isClientDone = input.equalsIgnoreCase("done");
 			}
 			
@@ -50,9 +51,16 @@ public class Server {
 
 	public static void main(String [] args){
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter port number");
-		
+		System.out.println("Enter the port on which the server will run:");
 		int port = input.nextInt();
+		
+		try {
+			//PRINTS OUT HOST IP FOR OTHER CHATTERS
+			System.out.println("Your IP Address is: " + InetAddress.getLocalHost());
+		} catch (UnknownHostException e) {
+			System.out.println(e);
+		}
+		
 		Server server = new Server(port);
 	}
 	

@@ -6,14 +6,14 @@ import java.util.Scanner;
 
 public class Client {
 	
-	Socket socket = null;
-	DataOutputStream outputStream = null;
-	Scanner input = null;
+	private Socket socket = null;
+	private DataOutputStream outputStream = null;
+	private Scanner input = null;
 	
-	public Client(int port) throws IOException{
+	public Client(String ip, int port) throws IOException{
 		System.out.println("Establishing a connection to a server..."); 
 		try {
-			socket = new Socket("localhost", port);
+			socket = new Socket(ip, port);
 			System.out.println("Connected to port " + port + "."); 
 			start();
 			
@@ -51,8 +51,13 @@ public class Client {
 	
 	public static void main(String [] args) throws IOException{
 		Scanner initialInput = new Scanner(System.in);
+		
+		System.out.println("Enter server name: ");
+		String ip = initialInput.nextLine();
 		System.out.println("Enter server port: ");
-		Client client = new Client(initialInput.nextInt());
+		int port = initialInput.nextInt();
+		
+		Client client = new Client(ip, port);
 		initialInput.close();
 	}
 }
