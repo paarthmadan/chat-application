@@ -23,12 +23,12 @@ public class Server {
 			
 			boolean isClientDone = false;
 			
-			while(streamInput.readUTF() != null && !isClientDone){
-				
+			while(!isClientDone){
 				String input = streamInput.readUTF();
+				if(input == null)
+					isClientDone = true;
 				System.out.println(input);
 				isClientDone = input.equalsIgnoreCase("done");
-				
 			}
 			
 			//close socket and streams
@@ -54,7 +54,6 @@ public class Server {
 		
 		int port = input.nextInt();
 		Server server = new Server(port);
-		
 	}
 	
 }

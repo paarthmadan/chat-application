@@ -21,15 +21,18 @@ public class Client {
 			
 			while(!isDone){
 				String line = input.nextLine();
+				System.out.println("Sending: " + line);
 				if(line.equalsIgnoreCase("done")){
 					isDone = true;
 				}
 				try {
 					outputStream.writeUTF(line);
-					outputStream.flush();
 				} catch (IOException e) {
 					System.out.println(e);
 				}
+				
+				outputStream.flush();
+				
 			}
 			
 		} catch (IOException e) {
