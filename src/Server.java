@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.Scanner;
 
 public class Server {
 	
@@ -45,6 +46,15 @@ public class Server {
 	public void close() throws IOException{
 		socket.close();
 		streamInput.close();
+	}
+
+	public static void main(String [] args){
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter port number");
+		
+		int port = input.nextInt();
+		Server server = new Server(port);
+		
 	}
 	
 }
