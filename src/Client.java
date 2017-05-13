@@ -10,7 +10,7 @@ public class Client {
 	private DataOutputStream outputStream = null;
 	private Scanner input = null;
 	
-	public Client(String ip, int port) throws IOException{
+	public Client(String ip, int port){
 		System.out.println("Establishing a connection to a server..."); 
 		try {
 			socket = new Socket(ip, port);
@@ -22,9 +22,11 @@ public class Client {
 			while(!isDone){
 				String line = input.nextLine();
 				System.out.println("Sending: " + line);
+			
 				if(line.equalsIgnoreCase("done")){
 					isDone = true;
 				}
+				
 				try {
 					outputStream.writeUTF(line);
 				} catch (IOException e) {
@@ -39,14 +41,16 @@ public class Client {
 			System.out.println(e);
 		}
 		
-		
-		outputStream.close();
-		socket.close();
 	}
 	
 	public void start() throws IOException{
 		input = new Scanner(System.in);
 		outputStream = new DataOutputStream(socket.getOutputStream());
+	}
+	
+	public void close() throws IOException{
+		outputStream.close();
+		socket.close();
 	}
 	
 	public static void main(String [] args) throws IOException{
