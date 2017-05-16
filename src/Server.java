@@ -2,11 +2,12 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Server {
+public class Server implements Runnable{
 	
 	private ServerSocket server = null;
 	private Socket socket = null;
 	private DataInputStream streamInput = null;
+	private Thread thread = null;
 	
 	public Server(int portNumber){
 	
@@ -15,25 +16,7 @@ public class Server {
 			server = new ServerSocket(portNumber);
 			System.out.println("Server created: " + server);
 			
-			System.out.println("Waiting for client...");
-			socket = server.accept();
-			System.out.println("Connected to client!");
-			
-			//open socket and streams
-			open();
-			
-			boolean isClientDone = false;
-			
-			while(!isClientDone){
-				String input = streamInput.readUTF();
-				if(input == null)
-					isClientDone = true;
-				System.out.println(socket.getLocalPort() + ": " + input);
-				isClientDone = input.equalsIgnoreCase("done");
-			}
-			
-			//close socket and streams
-			close();
+			start();
 			
 		}catch(IOException e){
 			System.out.println(e);
@@ -47,6 +30,16 @@ public class Server {
 	public void close() throws IOException{
 		socket.close();
 		streamInput.close();
+	}
+	
+	public void start(){
+		if(thread == null)
+			thread = new Thread(this); thread.start();
+	}
+	
+	public void stop(){
+		if(thread != null)
+			thread.interrupt(); thread = null;
 	}
 
 	public static void main(String [] args){
@@ -63,5 +56,35 @@ public class Server {
 		
 		Server server = new Server(port);
 	}
+
+	@Override
+	public void run() {
+		while(thread != null){
+			try{
+				System.out.println("Waiting for client...");
+				socket = server.accept();
+				System.out.println("Connected to client!");
+				
+				//open socket and streams
+				open();
+				
+				boolean isClientDone = false;
+				
+				while(!isClientDone){
+					String input = streamInput.readUTF();
+					if(input == null)
+						isClientDone = true;
+					System.out.println(socket.getLocalPort() + ": " + input);
+					isClientDone = input.equalsIgnoreCase("done");
+				}
+				
+				//close socket and streams
+				close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
 	
 }
+
