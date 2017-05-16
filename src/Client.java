@@ -58,6 +58,7 @@ public class Client {
 		
 		System.out.println("Enter server name: ");
 		String ip = initialInput.nextLine();
+		
 		System.out.println("Enter server port: ");
 		int port = initialInput.nextInt();
 		
