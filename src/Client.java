@@ -21,8 +21,8 @@ public class Client {
 			
 			while(!isDone){
 				String line = input.nextLine();
-				System.out.println("Sending: " + line);
-			
+//				System.out.println("Sending: " + line);
+
 				if(line.equalsIgnoreCase("done")){
 					isDone = true;
 				}

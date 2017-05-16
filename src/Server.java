@@ -5,31 +5,26 @@ import java.util.Scanner;
 public class Server implements Runnable{
 	
 	private ServerSocket server = null;
-	private Socket socket = null;
-	private DataInputStream streamInput = null;
 	private Thread thread = null;
+	private ServerThread clientThread = null;
 	
 	public Server(int portNumber){
 	
 		try{
+			System.out.println("----------------- SERVER -----------------");
+			
 			System.out.println("Creating server on port " + portNumber + ", please wait...");
 			server = new ServerSocket(portNumber);
+			server.setReuseAddress(true);
 			System.out.println("Server created: " + server);
+			
+			System.out.println("------------------------------------------\n");
 			
 			start();
 			
 		}catch(IOException e){
 			System.out.println(e);
 		}
-	}
-	
-	public void open() throws IOException{
-		streamInput = new DataInputStream(socket.getInputStream());
-	}
-	
-	public void close() throws IOException{
-		socket.close();
-		streamInput.close();
 	}
 	
 	public void start(){
@@ -42,6 +37,35 @@ public class Server implements Runnable{
 			thread.interrupt(); thread = null;
 	}
 
+	@Override
+	public void run() {
+		while(thread != null){
+			try{
+				System.out.println("----------------- CLIENT -----------------");
+				System.out.println("Accepting new client...");
+				createThread(server.accept());
+
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void createThread(Socket socket){
+		System.out.println("Connected to client " + socket + "!");
+		System.out.println("------------------------------------------\n");
+		clientThread = new ServerThread(this, socket);
+		
+		try{
+			clientThread.open();
+			clientThread.start();
+		}catch(IOException ioe){
+			System.out.println("Could not start thread: " + ioe);
+		}
+		
+	}
+	
+	
 	public static void main(String [] args){
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the port on which the server will run:");
@@ -49,42 +73,15 @@ public class Server implements Runnable{
 		
 		try {
 			//PRINTS OUT HOST IP FOR OTHER CHATTERS
-			System.out.println("Your IP Address is: " + InetAddress.getLocalHost());
+			System.out.println("Your IP Address is: " + InetAddress.getLocalHost() + "\n");
 		} catch (UnknownHostException e) {
 			System.out.println(e);
 		}
 		
 		Server server = new Server(port);
+		input.close();
 	}
 
-	@Override
-	public void run() {
-		while(thread != null){
-			try{
-				System.out.println("Waiting for client...");
-				socket = server.accept();
-				System.out.println("Connected to client!");
-				
-				//open socket and streams
-				open();
-				
-				boolean isClientDone = false;
-				
-				while(!isClientDone){
-					String input = streamInput.readUTF();
-					if(input == null)
-						isClientDone = true;
-					System.out.println(socket.getLocalPort() + ": " + input);
-					isClientDone = input.equalsIgnoreCase("done");
-				}
-				
-				//close socket and streams
-				close();
-			}catch(Exception e){
-				e.printStackTrace();
-			}
-		}
-	}
 	
 }
 
