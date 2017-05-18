@@ -26,7 +26,7 @@ public class ServerThread extends Thread{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(socket.getPort() + ": " + input);
+			System.out.println(ID + ": " + input);
 			isClientDone = input.equalsIgnoreCase("done");
 		}
 		
