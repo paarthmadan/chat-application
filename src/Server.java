@@ -1,12 +1,13 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Server implements Runnable{
 	
 	private ServerSocket server = null;
 	private Thread thread = null;
-	private ServerThread clientThread = null;
+	private ArrayList<ServerThread> threads = null;
 	
 	public Server(int portNumber){
 	
@@ -19,6 +20,8 @@ public class Server implements Runnable{
 			System.out.println("Server created: " + server);
 			
 			System.out.println("------------------------------------------\n");
+			
+			threads = new ArrayList<ServerThread>();
 			
 			start();
 			
@@ -54,11 +57,12 @@ public class Server implements Runnable{
 	public void createThread(Socket socket){
 		System.out.println("Connected to client " + socket + "!");
 		System.out.println("------------------------------------------\n");
-		clientThread = new ServerThread(this, socket);
+		
+		threads.add(new ServerThread(this, socket));
 		
 		try{
-			clientThread.open();
-			clientThread.start();
+			threads.get(threads.size() - 1).open();
+			threads.get(threads.size() - 1).start();
 		}catch(IOException ioe){
 			System.out.println("Could not start thread: " + ioe);
 		}
