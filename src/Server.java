@@ -61,8 +61,9 @@ public class Server implements Runnable{
 		threads.add(new ServerThread(this, socket));
 		
 		try{
-			threads.get(threads.size() - 1).open();
-			threads.get(threads.size() - 1).start();
+			int newThread = threads.size() - 1;
+			threads.get(newThread).open();
+			threads.get(newThread).start();
 		}catch(IOException ioe){
 			System.out.println("Could not start thread: " + ioe);
 		}
