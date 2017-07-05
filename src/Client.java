@@ -1,14 +1,19 @@
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
-public class Client {
+public class Client implements Runnable{
 	
 	private Socket socket = null;
 	private DataOutputStream outputStream = null;
 	private Scanner input = null;
+	private Thread thread = null;
+	private ClientThread clientThread = null;
+	private volatile boolean isDone = false;
 	
 	public Client(String ip, int port){
 		System.out.println("Establishing a connection to a server..."); 
@@ -17,52 +22,78 @@ public class Client {
 			System.out.println("Connected to port " + port + "."); 
 			start();
 			
-			boolean isDone = false;
-			
-			while(!isDone){
-				String line = input.nextLine();
-//				System.out.println("Sending: " + line);
-
-				if(line.equalsIgnoreCase("done")){
-					isDone = true;
-				}
-				
-				try {
-					outputStream.writeUTF(line);
-				} catch (IOException e) {
-					System.out.println(e);
-				}
-				
-				outputStream.flush();
-				
-			}
-			
 		} catch (IOException e) {
 			System.out.println(e);
 		}
 		
 	}
 	
+	public void handle(String msg) {  
+		if (msg.equals(".bye")){
+			System.out.println("Good bye. Press RETURN to exit ..."); stop();
+		}
+		else{
+			System.out.println(msg);
+		}
+	}
+	
+	public void run(){
+		if(!isDone){
+			while(thread != null){
+				String line = null;
+				try{
+					line = input.nextLine();
+					outputStream.writeUTF(line); 
+					System.out.println("sent");
+				}catch(Exception e){
+					e.printStackTrace();
+				}
+			}
+		}			
+	}
+		
 	public void start() throws IOException{
 		input = new Scanner(System.in);
 		outputStream = new DataOutputStream(socket.getOutputStream());
+		
+		if(thread == null){
+			clientThread = new ClientThread(this, socket);
+			thread = new Thread(this);
+			thread.start();	
+		}
+			 
 	}
 	
 	public void close() throws IOException{
 		outputStream.close();
 		socket.close();
+		input.close();
+	}
+
+	public void stop(){
+		if(thread != null){
+			isDone = true;
+			thread = null;
+		}
+		try {
+			close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String [] args) throws IOException{
 		Scanner initialInput = new Scanner(System.in);
-		
-		System.out.println("Enter server name: ");
-		String ip = initialInput.nextLine();
-		
-		System.out.println("Enter server port: ");
-		int port = initialInput.nextInt();
-		
-		Client client = new Client(ip, port);
-		initialInput.close();
+		if(args.length < 2){
+			System.out.println("Server Name:");
+			String host = initialInput.nextLine();
+			System.out.println("Port:");
+			int port = Integer.parseInt(initialInput.nextLine());
+			Client client = new Client(host, port);
+		}else{
+			Client client = new Client(args[0], Integer.parseInt(args[1]));
+		}
 	}
+
+
 }
