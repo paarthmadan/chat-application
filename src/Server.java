@@ -103,25 +103,14 @@ public class Server implements Runnable{
 	
 	
 	public synchronized void handle(int id, String input){
+		for(ServerThread c : threads)
+			if(c.getID() != id)
+				c.send(id + ": " + input);
+		
 		if(input.equalsIgnoreCase("bye")){
-			
-			for(ServerThread c : threads){
-				if(c.getID() != id){
-					c.send(id + ": " + input);
-				}
-			}	
-			
 			threads.get((findThread(id))).send(".bye");
 			removeThread(id);
 		}			 
-		else{
-			for(ServerThread c : threads){
-				if(c.getID() != id){
-					c.send(id + ": " + input);
-				}
-			}				
-		}
-			
 	}
 	
 	public static void main(String [] args){

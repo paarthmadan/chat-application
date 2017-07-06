@@ -39,7 +39,6 @@ public class ClientThread extends Thread{
 	public void run(){
 		while(!isDone){
 			try{
-//				System.out.println("client handling");
 				client.handle(inputStream.readUTF());
 			}catch(IOException ioe){
 				System.out.println("Listening error" + ioe.getMessage());

@@ -86,7 +86,7 @@ public class Client implements Runnable{
 	public static void main(String [] args) throws IOException{
 		Scanner initialInput = new Scanner(System.in);
 		if(args.length < 2){
-			System.out.println("Server Names:");
+			System.out.println("Server Name:");
 			String host = initialInput.nextLine();
 			System.out.println("Port:");
 			int port = Integer.parseInt(initialInput.nextLine());
