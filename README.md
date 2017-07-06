@@ -14,5 +14,6 @@ A multi-client, java, chat application.
 - [ ] GIF Demonstration
 
 ## Mockup GUI Designs
+#### Main Screen
 ![alt text](https://raw.githubusercontent.com/paarthmadan/chat-application/master/mockups/main-screen.png)
 
