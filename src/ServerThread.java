@@ -22,7 +22,6 @@ public class ServerThread extends Thread{
 		while(!isDone){
 			try {
 				server.handle(ID, streamInput.readUTF());
-				System.out.println("handled");
 			} catch (IOException ioe) {
 				//Expected EOF error
 			} 
@@ -35,7 +34,7 @@ public class ServerThread extends Thread{
 			streamOutput.flush();
 			System.out.println(message + " sent to client: " + ID);
 		}catch(IOException e){
-			//handle
+			e.printStackTrace();
 			server.removeThread(ID);
 		}
 	}

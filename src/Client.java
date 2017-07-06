@@ -1,8 +1,7 @@
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.NoSuchElementException;
+import java.net.SocketException;
 import java.util.Scanner;
 
 
@@ -28,28 +27,27 @@ public class Client implements Runnable{
 		
 	}
 	
-	public void handle(String msg) {  
+	public void handle(String msg){  
 		if (msg.equals(".bye")){
-			System.out.println("Good bye. Press RETURN to exit ..."); stop();
-		}
-		else{
+			System.out.println("Good bye. Press RETURN to exit ..."); 
+			stop();
+		}else{
 			System.out.println(msg);
 		}
 	}
 	
 	public void run(){
-		if(!isDone){
-			while(thread != null){
-				String line = null;
-				try{
-					line = input.nextLine();
-					outputStream.writeUTF(line); 
-					System.out.println("sent");
-				}catch(Exception e){
-					e.printStackTrace();
-				}
+		while(!isDone){
+			String line = null;
+			try{
+				line = input.nextLine();
+				outputStream.writeUTF(line);
+			}catch(SocketException se){
+				//socket is closed
+			}catch(Exception e){
+				e.printStackTrace();
 			}
-		}			
+		}
 	}
 		
 	public void start() throws IOException{
@@ -65,9 +63,12 @@ public class Client implements Runnable{
 	}
 	
 	public void close() throws IOException{
+		isDone = true;
 		outputStream.close();
 		socket.close();
 		input.close();
+		clientThread.close();
+		clientThread.interrupt();		
 	}
 
 	public void stop(){
@@ -85,7 +86,7 @@ public class Client implements Runnable{
 	public static void main(String [] args) throws IOException{
 		Scanner initialInput = new Scanner(System.in);
 		if(args.length < 2){
-			System.out.println("Server Name:");
+			System.out.println("Server Names:");
 			String host = initialInput.nextLine();
 			System.out.println("Port:");
 			int port = Integer.parseInt(initialInput.nextLine());

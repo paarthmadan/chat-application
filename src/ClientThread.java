@@ -7,6 +7,7 @@ public class ClientThread extends Thread{
 	private Client client = null;
 	private Socket socket = null;
 	private DataInputStream inputStream = null;
+	private volatile boolean isDone = false;
 	
 	public ClientThread(Client client, Socket socket){
 		this.client = client;
@@ -31,17 +32,20 @@ public class ClientThread extends Thread{
 		}catch(IOException ioe){
 			System.out.println("Error closing input stream: " + ioe);
 		}
+		
+		isDone = true;
 	}
 	
 	public void run(){
-		while(true){
+		while(!isDone){
 			try{
+//				System.out.println("client handling");
 				client.handle(inputStream.readUTF());
 			}catch(IOException ioe){
 				System.out.println("Listening error" + ioe.getMessage());
 				client.stop();
+			
 			}
 		}
 	}
-	
 }

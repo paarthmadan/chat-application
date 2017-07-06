@@ -47,7 +47,6 @@ public class Server implements Runnable{
 				System.out.println("----------------- CLIENT -----------------");
 				System.out.println("Accepting new client...");
 				addThread(server.accept());
-
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -104,17 +103,22 @@ public class Server implements Runnable{
 	
 	
 	public synchronized void handle(int id, String input){
-		
-		System.out.println("called");
-		
 		if(input.equalsIgnoreCase("bye")){
+			
+			for(ServerThread c : threads){
+				if(c.getID() != id){
+					c.send(id + ": " + input);
+				}
+			}	
+			
 			threads.get((findThread(id))).send(".bye");
 			removeThread(id);
 		}			 
 		else{
 			for(ServerThread c : threads){
-				if(c.getID() != id)
+				if(c.getID() != id){
 					c.send(id + ": " + input);
+				}
 			}				
 		}
 			
