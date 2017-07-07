@@ -16,4 +16,6 @@ A multi-client, java, chat application.
 ## Mockup GUI Designs
 #### Main Screen
 ![alt text](https://raw.githubusercontent.com/paarthmadan/chat-application/master/mockups/main-screen.png)
+#### Info Screen
+![alt text](https://raw.githubusercontent.com/paarthmadan/chat-application/master/mockups/info-screen.png)
 
