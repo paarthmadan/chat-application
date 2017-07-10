@@ -6,7 +6,7 @@ A multi-client, java, chat application.
 - [x] Client can quit, and new client can connect to server.
 - [x] Multiple client interaction with server.
 - [x] Disseminate messages received by server to clients.
-- [ ] Create potential GUI designs
+- [x] Create potential GUI designs
 - [ ] Create GUI
 - [ ] Implement back-end and front-end 
 - [ ] Code Review
