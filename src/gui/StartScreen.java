@@ -1,11 +1,8 @@
 package gui;
-import java.awt.GraphicsEnvironment;
-
 import javafx.application.*;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class StartScreen extends Application{
@@ -32,8 +29,8 @@ public class StartScreen extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		
-		StartButton createButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, CREATE_BUTTON_STRING, this.getClass().getResource("create-button-img.png").toString(), "left", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
-		StartButton joinButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, JOIN_BUTTON_STRING, this.getClass().getResource("join-button-img.png").toString(), "right", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
+		StartButton createButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, CREATE_BUTTON_STRING, this.getClass().getResource("create-button-img.png").toExternalForm(), "left", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
+		StartButton joinButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, JOIN_BUTTON_STRING, this.getClass().getResource("join-button-img.png").toExternalForm(), "right", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
 		
 		mainLayout = new BorderPane();
 		
@@ -41,6 +38,9 @@ public class StartScreen extends Application{
 		mainLayout.setRight(joinButton);
 		
 		scene = new Scene(mainLayout);
+		
+		scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
+		Font.loadFont(this.getClass().getResource("Fresca-Regular.ttf").toExternalForm().replaceAll("%20", " "), 24);
 		
 		window.setMinHeight(SCREEN_HEIGHT);
 		window.setMinWidth(SCREEN_WIDTH);
