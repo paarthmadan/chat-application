@@ -11,7 +11,7 @@ public class StartScreen extends Application{
 	final String CREATE_BUTTON_STRING = "CREATE";
 	final String JOIN_BUTTON_STRING = "JOIN";
 	
-	final int SCREEN_WIDTH = 500;
+	final int SCREEN_WIDTH = 490;
 	final int SCREEN_HEIGHT = 300;
 	final int BUTTON_HEIGHT = 215;
 	final int BUTTON_WIDTH = 160;

@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
 public class StartButton extends Button{
@@ -35,6 +34,7 @@ public class StartButton extends Button{
 		
 		image = new ImageView(imgRes);
 		
+		VBox.setMargin(image, new Insets(10, 0, 0, 0));
 		verticalLayout.setAlignment(Pos.CENTER);
 		
 		verticalLayout.getChildren().add(image);
