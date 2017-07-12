@@ -32,8 +32,8 @@ public class StartScreen extends Application{
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		
-		StartButton createButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, CREATE_BUTTON_STRING, "", "left", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
-		StartButton joinButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, JOIN_BUTTON_STRING, "", "right", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
+		StartButton createButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, CREATE_BUTTON_STRING, this.getClass().getResource("create-button-img.png").toString(), "left", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
+		StartButton joinButton = new StartButton(BUTTON_WIDTH, BUTTON_HEIGHT, JOIN_BUTTON_STRING, this.getClass().getResource("join-button-img.png").toString(), "right", BUTTON_WIDTH_MARGIN, BUTTON_HEIGHT_MARGIN);
 		
 		mainLayout = new BorderPane();
 		
@@ -49,7 +49,6 @@ public class StartScreen extends Application{
 		window.setScene(scene);
 		window.setTitle(WINDOW_TITLE);
 		window.setResizable(false);
-		
 		
 		window.show();
 	}
