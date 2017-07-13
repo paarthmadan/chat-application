@@ -11,20 +11,22 @@ import javafx.scene.text.TextAlignment;
 
 public class StartButton extends Button{
 	
+	private final int VBOX_MARGIN_HEIGHT = 37;
+	
 	private ImageView image;
 	private VBox verticalLayout;
 	private Label buttonText;
 	
 	public StartButton(double width, double height, String text, String imgRes, String pos, double marginWidth, double marginHeight){
 		
-		verticalLayout = new VBox(37);
+		verticalLayout = new VBox(VBOX_MARGIN_HEIGHT);
 		
 		buttonText = new Label(text);
 		buttonText.setTextAlignment(TextAlignment.CENTER);
 		buttonText.getStyleClass().add(".button-text");
 		
-		setMinWidth(width);
-		setMinHeight(height);
+		this.setMinWidth(width);
+		this.setMinHeight(height);
 		
 		if(pos.equalsIgnoreCase("Left")){
 			BorderPane.setMargin(this, new Insets(marginHeight, 0, 0, marginWidth));	
