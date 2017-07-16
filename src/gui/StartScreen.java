@@ -82,13 +82,11 @@ public class StartScreen extends Application{
 	
 	//Create Method
 	public void create(){
-		System.out.println("CREATE");
 		window.setScene(null);
 	}
 	
 	//Join Method
 	public void join(){
-		System.out.println("JOIN");
 		window.setScene(null);
 	}
 	

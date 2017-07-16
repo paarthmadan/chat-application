@@ -7,7 +7,10 @@ A multi-client, java, chat application.
 - [x] Multiple client interaction with server.
 - [x] Disseminate messages received by server to clients.
 - [x] Create potential GUI designs
-- [ ] Create GUI
+- [x] Create Main Screen UI
+- [ ] Create Server Creation UI
+- [ ] Create Client Joining UI
+- [ ] Create Chat Interface UI
 - [ ] Implement back-end and front-end 
 - [ ] Code Review
 - [ ] Screenshots
