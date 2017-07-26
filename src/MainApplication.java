@@ -1,3 +1,4 @@
+import gui.CreateScreen;
 import gui.StartScreen;
 import javafx.application.*;
 import javafx.scene.Scene;
@@ -18,6 +19,7 @@ public class MainApplication extends Application{
 		private Stage window;
 		private Scene currentScene;
 		private StartScreen startScreen;
+		private CreateScreen serverScreen;
 		
 		@Override
 		public void start(Stage primaryStage) throws Exception {
@@ -43,33 +45,31 @@ public class MainApplication extends Application{
 
 		private void createScenes() {
 			this.startScreen = new StartScreen();
+			this.serverScreen = new CreateScreen();
 		}
 
 		private void loadStartScreen(){
 			currentScene = startScreen.getScene();
 			window.setScene(currentScene);
 			
+			//CREATE
 			startScreen.getCreateButton().setOnAction(e -> {
-				create();
+				loadCreateScreen();
 			});
 			
+			//JOIN
 			startScreen.getJoinButton().setOnAction(e -> {
-				join();
-			});
-			
+				
+			});	
 		}
+		
+		private void loadCreateScreen(){
+			currentScene = serverScreen.getScene();
+			window.setScene(currentScene);
+		}
+		
 		
 		public static void main(String [] args){
 			launch(args);
-		}
-		
-		//Create Method
-		public void create(){
-			window.setScene(null);
-		}
-		
-		//Join Method
-		public void join(){
-			window.setScene(null);
 		}
 }

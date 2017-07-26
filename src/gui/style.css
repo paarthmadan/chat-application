@@ -2,17 +2,20 @@
 	-fx-background-color: linear-gradient(#1976d2, #1976d2, #1976d2, #1566c1);
 }
 
-.button{
-	-fx-background-color: rgb(250, 250, 250);
+.start-button{
 	-fx-background-radius: 5px;
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.99), 2, 0, 1, 1 );
 }
 
-.button:hover{
+.start-button:hover{
 	-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.99), 2.5, 0, 2, 2 );
 }
 
-.button:active{
+.button{
+	-fx-background-color: rgb(250, 250, 250);
+}
+
+.start-button:active{
 
 }
 

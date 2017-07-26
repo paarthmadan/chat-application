@@ -43,6 +43,6 @@ public class StartButton extends Button{
 		verticalLayout.getChildren().add(buttonText);
 		
 		this.setGraphic(verticalLayout);
-		this.getStyleClass().add(".button");
+		this.getStyleClass().add(".start-button");
 		}
 }

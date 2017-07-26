@@ -16,11 +16,14 @@ public class Screen {
 	final double BUTTON_WIDTH_MARGIN = 50.0;
 	
 	//GUI COMPONENTS
-	protected BorderPane mainLayout;
 	protected Scene scene;
 	
 	public Scene getScene(){
 		return this.scene;
+	}
+	
+	public void deleteScreen(){
+		this.scene = null;
 	}
 	
 }
