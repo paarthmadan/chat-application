@@ -21,8 +21,9 @@ public class CreateScreen extends Screen{
 	private Button backButton;
 	private Button createButton;
 	
+	private Scene scene;
+	
 	public CreateScreen(){
-		scene = null;
 		groupNameTextField = new TextField("group name");
 		nickNameTextField = new TextField("nickname");
 		
@@ -45,16 +46,19 @@ public class CreateScreen extends Screen{
 		verticalContainer.getChildren().addAll(groupNameTextField, nickNameTextField, horizontalContainer, horizontalButtonContainer);
 		
 		BorderPane mainLayout = new BorderPane();
-		scene = new Scene(mainLayout);
 		
-		//SCENE CSS
-		for(int i = 0; i < scene.getStylesheets().size(); i++){
-			scene.getStylesheets().remove(i);
-		}
+		mainLayout.setCenter(verticalContainer);
+		scene = new Scene(mainLayout);
+
 		scene.getStylesheets().add(this.getClass().getResource("style.css").toExternalForm());
-				
+		
 		//LOAD FONT
 		Font.loadFont(this.getClass().getResource("Fresca-Regular.ttf").toExternalForm().replaceAll("%20", " "), 24);
-		
+
 	}
+	
+	public Scene getScene(){
+		return this.scene;
+	}
+	
 }

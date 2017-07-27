@@ -17,40 +17,33 @@ public class MainApplication extends Application{
 
 		//GUI COMPONENTS
 		private Stage window;
-		private Scene currentScene;
 		private StartScreen startScreen;
 		private CreateScreen serverScreen;
 		
 		@Override
 		public void start(Stage primaryStage) throws Exception {
-			window = primaryStage;
+			this.window = primaryStage;
 			
-			createScenes();
 			loadStartScreen();
 			windowConfiguration();
-			
+
 			//LAUNCH
 			window.show();
 		}
 		
 		//WINDOW CONFIGURATIONS
 		private void windowConfiguration() {
-			window.setMinHeight(SCREEN_HEIGHT);
-			window.setMinWidth(SCREEN_WIDTH);
+			window.setHeight(SCREEN_HEIGHT);
+			window.setWidth(SCREEN_WIDTH);
 			window.setOnCloseRequest(null);
-			window.setScene(currentScene);
 			window.setTitle(WINDOW_TITLE);
 			window.setResizable(false);
 		}
 
-		private void createScenes() {
-			this.startScreen = new StartScreen();
-			this.serverScreen = new CreateScreen();
-		}
 
 		private void loadStartScreen(){
-			currentScene = startScreen.getScene();
-			window.setScene(currentScene);
+			startScreen = new StartScreen();
+			window.setScene(startScreen.getScene());
 			
 			//CREATE
 			startScreen.getCreateButton().setOnAction(e -> {
@@ -64,8 +57,8 @@ public class MainApplication extends Application{
 		}
 		
 		private void loadCreateScreen(){
-			currentScene = serverScreen.getScene();
-			window.setScene(currentScene);
+			serverScreen = new CreateScreen();
+			window.setScene(serverScreen.getScene());
 		}
 		
 		

@@ -1,6 +1,4 @@
 package gui;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 public class Screen {
 	
@@ -14,16 +12,5 @@ public class Screen {
 	//DOUBLES
 	final double BUTTON_HEIGHT_MARGIN = (SCREEN_HEIGHT - BUTTON_HEIGHT - TASKBAR_HEIGHT) / 2;
 	final double BUTTON_WIDTH_MARGIN = 50.0;
-	
-	//GUI COMPONENTS
-	protected Scene scene;
-	
-	public Scene getScene(){
-		return this.scene;
-	}
-	
-	public void deleteScreen(){
-		this.scene = null;
-	}
 	
 }

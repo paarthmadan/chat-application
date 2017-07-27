@@ -13,6 +13,7 @@ public class StartScreen extends Screen{
 	
 	private StartButton createButton;
 	private StartButton joinButton;
+	private Scene scene;
 	
 	public StartScreen(){
 		
@@ -43,5 +44,9 @@ public class StartScreen extends Screen{
 
 	public StartButton getJoinButton(){
 		return this.joinButton;
+	}
+	
+	public Scene getScene(){
+		return this.scene;
 	}
 }
