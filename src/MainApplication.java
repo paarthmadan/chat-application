@@ -59,6 +59,16 @@ public class MainApplication extends Application{
 		private void loadCreateScreen(){
 			serverScreen = new CreateScreen();
 			window.setScene(serverScreen.getScene());
+			
+			serverScreen.getBackButton().setOnAction(e -> {
+				loadStartScreen();
+			});
+			
+			serverScreen.getCreateButton().setOnAction(e -> {
+				if(serverScreen.checkValues())
+					System.out.println("Success!");
+			});
+			
 		}
 		
 		
