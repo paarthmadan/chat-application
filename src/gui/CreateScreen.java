@@ -30,7 +30,7 @@ public class CreateScreen extends Screen{
 	final int BUTTON_WIDTH = 138;
 	final int BUTTON_HEIGHT = 35;
 	final int CHECK_BOX_WIDTH = 78;
-	final int NAME_LIMIT = 25;
+	final int NAME_LIMIT = 30;
 	
 	final String [] buttonStyleArray = {
 			"-fx-background-radius: 0px; ",
@@ -53,6 +53,7 @@ public class CreateScreen extends Screen{
 	};
 	
 	private Scene scene;
+	private List<TextField> textFields;
 	
 	public CreateScreen(){
 		
@@ -64,7 +65,7 @@ public class CreateScreen extends Screen{
 		for(String s : textFieldStyleArray)
 			textFieldStyle += s;
 		
-		List<TextField> textFields = new ArrayList<TextField>();
+		textFields = new ArrayList<TextField>();
 		
 		groupNameTextField = new TextField();
 		groupNameTextField.setPromptText("group name");
@@ -73,16 +74,6 @@ public class CreateScreen extends Screen{
 		nickNameTextField.setPromptText("nickname");
 		
 		portNumberTextField = new TextField();
-		portNumberTextField.textProperty().addListener(new ChangeListener<String>(){
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if(portNumberTextField.getText().matches("^[0-9]+$")){
-					
-				}else{
-					portNumberTextField.setText(oldValue);
-				}
-			}
-		});
 		portNumberTextField.setPromptText("port number");
 		
 		accessCheckBox = new CheckBox("private");
@@ -119,6 +110,20 @@ public class CreateScreen extends Screen{
 					}
 				}
 			});
+		}
+		
+		for(int i = 2; i < 4; i++){
+			TextField temp = textFields.get(i);
+			temp.textProperty().addListener(new ChangeListener<String>() {
+		        @Override
+		        public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+		            if (!newValue.matches("\\d*")) {
+		            	temp.setText(newValue.replaceAll("[^\\d]", ""));
+		            }else if(temp.getPromptText().equals("limit") && newValue.length() > 2){
+		            	temp.setText(oldValue);
+		            }
+		        }
+		    });
 		}
 		
 		HBox horizontalContainer = new HBox(5);
@@ -174,9 +179,13 @@ public class CreateScreen extends Screen{
 	
 	public Boolean checkValues(){
 
+		for(TextField t : textFields){
+			if(t.getText().equals("") || t.getText().equals(null)){
+				return false;
+			}
+		}
 		
-		
-		return false;
+		return true;
 	}
 	
 }
