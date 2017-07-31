@@ -181,7 +181,6 @@ public class CreateScreen extends Screen{
 
 		for(TextField t : textFields){
 			if(t.getText().equals("") || t.getText().equals(null)){
-				ErrorPrompt alert = new ErrorPrompt("Invalid Submission", "The server cannot be created!", "Please fill out all required fields. Do not leave any blank!");
 				return false;
 			}
 		}

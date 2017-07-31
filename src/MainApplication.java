@@ -1,7 +1,6 @@
 import gui.CreateScreen;
 import gui.StartScreen;
 import javafx.application.*;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application{
@@ -70,7 +69,6 @@ public class MainApplication extends Application{
 			});
 			
 		}
-		
 		
 		public static void main(String [] args){
 			launch(args);
