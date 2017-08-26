@@ -8,11 +8,11 @@ public class MainApplication extends Application{
 		//CONSTANTS
 	
 		//STRINGS
-		final String WINDOW_TITLE = "Chat Application";
+		private final String WINDOW_TITLE = "Chat Application";
 		
 		//INTEGERS
-		final int SCREEN_WIDTH = 490;
-		final int SCREEN_HEIGHT = 300;
+		private final int SCREEN_WIDTH = 490;
+		private final int SCREEN_HEIGHT = 300;
 
 		//GUI COMPONENTS
 		private Stage window;
