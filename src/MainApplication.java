@@ -1,4 +1,5 @@
 import gui.CreateScreen;
+import gui.ErrorPrompt;
 import gui.StartScreen;
 import javafx.application.*;
 import javafx.stage.Stage;
@@ -66,6 +67,8 @@ public class MainApplication extends Application{
 			serverScreen.getCreateButton().setOnAction(e -> {
 				if(serverScreen.checkValues())
 					System.out.println("Success!");
+				else
+					new ErrorPrompt("Error!", "Could not create server!", "Please ensure all fields are correctly filled out, to ensure creation is successful!");;
 			});
 			
 		}
